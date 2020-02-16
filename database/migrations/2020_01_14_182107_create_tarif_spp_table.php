@@ -16,6 +16,7 @@ class CreateTarifSppTable extends Migration
         Schema::create('tarif_spp', function (Blueprint $table) {
             $table->bigIncrements('id_tarifspp');
             $table->string('tahun_ajaran');
+            $table->string('bulan');
             $table->integer('tarif_spp');
         });
     }

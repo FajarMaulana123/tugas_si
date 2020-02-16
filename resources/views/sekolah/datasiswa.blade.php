@@ -76,9 +76,8 @@
                                 </div>
                                 <div class="md-form form-sm">
                                 <select class="mdb-select" name="tahun_ajaran">
-                                    <option value="" disabled>Choose option</option>
                                     @foreach ($tahun as $tahuns)
-                                    <option value="{{$tahuns->tahun_ajaran}}">{{$tahuns->tahun_ajaran}}</option>
+                                    <option value="{{$tahuns->tahun_ajaran}}" {{ $tahuns->tahun_ajaran == $siswas->tahun_ajaran ? 'selected' : '' }}>{{$tahuns->tahun_ajaran}}</option>
                                     @endforeach
                                 </select>
                                 </div>

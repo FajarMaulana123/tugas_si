@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Selamat datang {{Session::get('nama_sekolah')}}</title>
+  <title>{{Session::get('nama_sekolah')}}</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -52,6 +52,7 @@ position:absolute;
             Hi, {{Session::get('email')}}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" data-toggle="modal" data-target="#Formpass">Ganti Password</a>
             <a class="dropdown-item" href="{{url('')}}/logout">Logout</a>
             
           </div>
@@ -64,18 +65,22 @@ position:absolute;
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
-      <a class="logo-wrapper waves-effect">
+      <!-- <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
-      </a>
-
+      </a> -->
+      <br><br>
+      <h1 class="text-center font-weight-bold">SP-SPP</h1>
+      <br><br>
       <div class="list-group list-group-flush">
         <a href="{{url('')}}/index" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="{{url('')}}/datasiswa" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-user mr-3"></i>Data Siswa</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{url('')}}/spp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>SPP</a>
+        <a href="{{url('')}}/datapembayaran" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>Data Pembayaran</a>
       </div>
 
     </div>
@@ -100,7 +105,42 @@ position:absolute;
       <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
     </div>
     <!--/.Copyright-->
+    <div class="modal fade" id="Formpass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Ganti Password</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body mx-3">
+        <form action="{{url('/gantipass',['id' => Session::get('id_sekolah')])}}" method="POST">
+        @csrf
+            <!-- <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="text" id="defaultForm-user" class="form-control validate" name="username">
+            <label data-error="wrong" data-success="right" for="defaultForm-user">Username</label>
+            </div> -->
 
+            <div class="md-form mb-4">
+            <input type="password" id="defaultForm-pass" class="form-control validate" name="curpass">
+            <label for="defaultForm-pass">Password Lama</label>
+            </div>
+
+            <div class="md-form mb-4">
+            <input type="password" id="defaultForm-pass" class="form-control validate" name="newpass">
+            <label for="defaultForm-pass">Password Baru</label>
+            </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-default" name="submit" type="submit">Simpan</button>
+        </div>
+        </div>
+        </form>
+    </div>
+    </div>
   </footer>
   <!--/.Footer-->
 
@@ -124,11 +164,18 @@ position:absolute;
     $(document).ready(function() {
 $('.mdb-select').materialSelect();
 });
+
+$(function () {
+$("#mdb-lightbox-ui").load("assets/mdb-addons/mdb-lightbox-ui.html");
+});
     </script>
 
   <script>
       @if(Session::has('success'))
           toastr.success('{{Session::get('success')}}', 'success');
+      @endif
+      @if(Session::has('error'))
+          toastr.info('{{Session::get('error')}}', 'info');
       @endif
   </script>
   

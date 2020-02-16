@@ -54,6 +54,13 @@
     <script type="text/javascript" src="assets/sa/sweetalert.min.js"></script>
     <script type="text/javascript" src="assets/sa/sweetalert-dev.js"></script>
     <script type="text/javascript" src="assets/js/addons/datatables.min.js"></script>
-    
+    <script>
+      @if(Session::has('success'))
+          toastr.success('{{Session::get('success')}}', 'success');
+      @endif
+      @if(Session::has('info'))
+          toastr.info('{{Session::get('info')}}', 'info');
+      @endif
+  </script>
   </body>
 </html>
